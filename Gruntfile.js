@@ -26,6 +26,46 @@ module.exports = function(grunt) {
 
     grunt.initConfig({
         threeForCom: threeForComConfig,
+        // Put files not handled in other tasks here
+        copy: {
+            dist: {
+                files: [{
+                    expand: true,
+                    dot: true,
+                    cwd: '<%= threeForCom.src %>',
+                    dest: '<%= threeForCom.dist %>',
+                    src: [
+                        '*.{ico,png,txt}',
+                        '.htaccess',
+                        'images/{,*/}*.{webp,gif}',
+                        'css/fonts/*'
+                    ]
+                },{
+                    expand: true,
+                    dot: true,
+                    cwd: '<%= threeForCom.src %>/components',
+                    dest: '<%= threeForCom.dist %>/vendor',
+                    src: [
+                        '**/*'
+                    ]
+                },{
+                    expand: true,
+                    dot: true,
+                    cwd: '<%= threeForCom.src %>/components/flexslider/fonts',
+                    dest: '<%= threeForCom.dist %>/css/fonts',
+                    src: [
+                        '*'
+                    ]
+                }]
+            },
+            styles: {
+                expand: true,
+                dot: true,
+                cwd: '<%= threeForCom.src %>/css',
+                dest: '.tmp/css/',
+                src: '{,*/}*.css'
+            }
+        },
         watch: {
             coffee: {
                 files: ['<%= threeForCom.src %>/js/{,*/}*.coffee'],
@@ -232,7 +272,7 @@ module.exports = function(grunt) {
                 src: ['.tmp/css/{,*/}*.css']
             },
             dist: {
-                src: ['<%= threeForCom.dist %>/css/{,*/}*.css']
+                src: ['<%= threeForCom.dist %>/css/{,*/}*.css', '.tmp/css/{,*/}*.css']
             }
         },
         autoprefixer: {
@@ -354,30 +394,6 @@ module.exports = function(grunt) {
                 }]
             }
         },
-        // Put files not handled in other tasks here
-        copy: {
-            dist: {
-                files: [{
-                    expand: true,
-                    dot: true,
-                    cwd: '<%= threeForCom.src %>',
-                    dest: '<%= threeForCom.dist %>',
-                    src: [
-                        '*.{ico,png,txt}',
-                        '.htaccess',
-                        'images/{,*/}*.{webp,gif}',
-                        'css/fonts/*'
-                    ]
-                }]
-            },
-            styles: {
-                expand: true,
-                dot: true,
-                cwd: '<%= threeForCom.src %>/css',
-                dest: '.tmp/css/',
-                src: '{,*/}*.css'
-            }
-        },
         concurrent: {
             server: [
                 'compass',
@@ -435,9 +451,9 @@ module.exports = function(grunt) {
         'useminPrepare',
         'concurrent:dist',
         'autoprefixer',
+        'csslint:dist',
         'jshint',
         'concat',
-        'csslint:dist',
         'cssmin',
         'uglify',
         'copy:dist',

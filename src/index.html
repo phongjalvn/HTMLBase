@@ -13,13 +13,16 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css css/plugins.css -->
+    <link rel="stylesheet" href="components/flexslider/flexslider.css">
+    <!-- endbuild -->
     <!-- build:css(.tmp) css/all.css -->
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/test.css">
     <link rel="stylesheet" href="css/less.css">
     <link rel="stylesheet" href="css/stylus.css">
     <!-- endbuild -->
-    <!-- build:js js/vendor/modernizr.js -->
+    <!-- build:js js/modernizr.js -->
     <script src="components/modernizr/modernizr.js"></script>
     <!-- endbuild -->
 </head>
@@ -30,7 +33,7 @@
             <h1>'Allo, 'Allo!</h1>
             <p>You now have</p>
             <ul>
-                <li><a href="#">HTML5 Boilerplate</a>
+                <li><a href="#" class="examplebutton">HTML5 Boilerplate</a>
                 </li>
             </ul>
             <p>installed.</p>
@@ -41,6 +44,22 @@
             <input type="radio" name="asd" id="asd" checked="checked">
             <img src="images/sprites/arrow.png" alt="">
             <!-- Just test -->
+            <div class="flexslider">
+                <ul class="slides">
+                    <li>
+                        <img src="images/image1.jpg" />
+                    </li>
+                    <li>
+                        <img src="images/image2.jpg" />
+                    </li>
+                    <li>
+                        <img src="images/image3.jpg" />
+                    </li>
+                    <li>
+                        <img src="images/image4.jpg" />
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 
@@ -66,15 +85,17 @@
     ga('send', 'pageview');
     </script>
 
-    <!-- build:js js/vendor/plugins.js -->
+    <!-- build:js js/plugins.js -->
     <script src="components/jquery/jquery.js"></script>
+    <script src="components/flexslider/jquery.flexslider.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:js(.tmp) js/modules.js -->
+    <script src="js/hello.js"></script>
     <!-- endbuild -->
 
     <!-- build:js js/main.js -->
     <script src="js/main.js"></script>
-    <!-- endbuild -->
-    <!-- build:js js/coffee.js -->
-    <script src="js/hello.js"></script>
     <!-- endbuild -->
 </body>
 

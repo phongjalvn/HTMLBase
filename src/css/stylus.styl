@@ -1,6 +1,33 @@
 @import "fluidity"
 @import "nib"
 
+link(color, hovercolor){
+	color: color
+	text-decoration: none
+	&:hover{
+		color: hovercolor
+	}
+}
+
+button(pval, radius, fontsize, background, color, hovercolor){
+	link color, hovercolor
+	padding pval
+	display inline-block
+	background linear-gradient(top, background, darken(background, 20))
+	border-radius radius
+	&:hover{
+		background: linear-gradient(bottom, background, darken(background, 20))
+	}
+}
+
 body {
   background: linear-gradient(bottom left, purple, green, blue, black);
+}
+
+.example {
+	float: left;
+}
+
+.examplebutton{
+	button: 5px 20px, 5px, 14px, greenyellow, #fff, #f00;
 }

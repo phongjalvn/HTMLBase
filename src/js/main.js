@@ -1,6 +1,7 @@
-console.log('\'Allo \'Allo!');
+'use strict';
 
-
-var cuibap = 'cuibap';
-
-console.log(cuibap);
+$(window).load(function() {
+    $('.flexslider').flexslider({
+        smoothHeight: true
+    });
+});
