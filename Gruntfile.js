@@ -40,7 +40,7 @@ module.exports = function(grunt) {
                         'images/{,*/}*.{webp,gif}',
                         'css/fonts/*'
                     ]
-                },{
+                }, {
                     expand: true,
                     dot: true,
                     cwd: '<%= threeForCom.src %>/components',
@@ -48,7 +48,7 @@ module.exports = function(grunt) {
                     src: [
                         '**/*'
                     ]
-                },{
+                }, {
                     expand: true,
                     dot: true,
                     cwd: '<%= threeForCom.src %>/components/flexslider/fonts',
@@ -77,19 +77,20 @@ module.exports = function(grunt) {
             },
             compass: {
                 files: ['<%= threeForCom.src %>/css/{,*/}*.{scss,sass}'],
-                tasks: ['compass:server', 'autoprefixer', 'csslint']
+                tasks: ['compass:server', 'autoprefixer']
             },
             less: {
                 files: ['<%= threeForCom.src %>/css/{,*/}*.less'],
-                tasks: ['less:dist', 'autoprefixer', 'csslint']
+                tasks: ['less:dist', 'autoprefixer']
             },
             stylus: {
                 files: ['<%= threeForCom.src %>/css/{,*/}*.styl'],
-                tasks: ['stylus:dist', 'autoprefixer', 'csslint']
+                // tasks: ['stylus:dist', 'autoprefixer', 'csslint']
+                tasks: ['stylus:dist', 'autoprefixer']
             },
             styles: {
                 files: ['<%= threeForCom.src %>/css/{,*/}*.css'],
-                tasks: ['copy:styles', 'autoprefixer', 'csslint']
+                tasks: ['copy:styles', 'autoprefixer']
             },
             livereload: {
                 options: {
@@ -418,6 +419,19 @@ module.exports = function(grunt) {
                 'svgmin',
                 'htmlmin'
             ]
+        },
+        notify: {
+            watch: {
+                options: {
+                    title: 'Task Complete', // optional
+                    message: 'SASS and Uglify finished running', //required
+                }
+            },
+            server: {
+                options: {
+                    message: 'Server is ready!'
+                }
+            }
         }
     });
 
@@ -432,10 +446,13 @@ module.exports = function(grunt) {
             'autoprefixer',
             // 'csslint:server',
             'connect:livereload',
+            'notify:server',
             'open',
             'watch'
         ]);
     });
+
+    grunt.loadNpmTasks('grunt-notify');
 
     grunt.registerTask('test', [
         'clean:server',

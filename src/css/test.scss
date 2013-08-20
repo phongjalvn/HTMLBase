@@ -1,8 +1,0 @@
-@import "compass";
-
-@import "../images/sprites/*.png";
-@include all-sprites-sprites;
-
-h1{
-	@include sprites-sprite(next);
-}

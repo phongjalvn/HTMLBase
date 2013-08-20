@@ -1,0 +1,46 @@
+/*!!!
+       _____ ____                              
+      |__  // __/___  ______________  ____ ___ 
+       /_ </ /_/ __ \/ ___/ ___/ __ \/ __ `__ \
+     ___/ / __/ /_/ / /  / /__/ /_/ / / / / / /
+    /____/_/  \____/_/   \___/\____/_/ /_/ /_/ 
+    ===========================================
+    File: main.css;
+    Project: HTMLBase;
+    Developer: Huynh Thanh Phong;
+                                               */
+// Framework import
+@import "compass";
+@import "base";
+
+// IE
+/*
+.ie                       : all version
+.ie9, .ie8, .ie7, .ie6    : target specific version
+.lt-ie9, .lt-ie8, .lt-ie7 : < all verion smaller than specific version
+*/
+
+// For other browser
+/*
+.chrome, .firefox, .safari                        : specific browser
+.win, .linux, .osx, .win8, .win7, .winxp, ... etc : specific os
+*/
+
+// You can mix and match browsers/OS like this:
+// .chrome.win8 : Target Chrome on windows 8
+// .fixfox.winxp: Target Firefox on Windows XP
+
+// Hope you find your best match!!!
+
+.ie{
+	.btn{
+		background: #f00;
+		color: #fff;
+	}
+}
+
+.ie9{
+	.btn{
+		color: #ff0;
+	}
+}

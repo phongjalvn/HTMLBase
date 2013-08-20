@@ -1,0 +1,38 @@
+/*!!!
+       _____ ____                              
+      |__  // __/___  ______________  ____ ___ 
+       /_ </ /_/ __ \/ ___/ ___/ __ \/ __ `__ \
+     ___/ / __/ /_/ / /  / /__/ /_/ / / / / / /
+    /____/_/  \____/_/   \___/\____/_/ /_/ /_/ 
+    ===========================================
+    File: main.css;
+    Project: HTMLBase;
+    Developer: Huynh Thanh Phong;
+                                               */
+// Framework import
+@import "compass";
+
+// Common variables
+$baseColor  : #333;
+$linkColor  : #84bcde;
+$hoverColor : darken($linkColor, 30%);
+
+// Common functions
+@mixin block{
+	margin: 10px 0;
+	position: relative;
+}
+
+@mixin button($padding: 5px 10px, $background: #f00, $color: #fff, $radius: 5px){
+	display: inline-block;
+	padding: $padding;
+	background: linear-gradient(top, $background, darken($background, 20%));
+	color: $color;
+	border-radius: $radius;
+	&:hover{
+		background: linear-gradient(top, lighten($background, 10%), darken($background, 10%));
+	}
+	&:active{
+		background: linear-gradient(top, darken($background, 20%), $background);
+	}
+}
