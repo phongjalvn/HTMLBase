@@ -51,7 +51,7 @@ module.exports = function(grunt) {
                 }, {
                     expand: true,
                     dot: true,
-                    cwd: '<%= threeForCom.src %>/components/flexslider/fonts',
+                    cwd: '<%= threeForCom.src %>/components/bootstrap/dist/fonts',
                     dest: '<%= threeForCom.dist %>/css/fonts',
                     src: [
                         '*'
@@ -67,6 +67,13 @@ module.exports = function(grunt) {
             }
         },
         watch: {
+            swig: {
+                files: [
+                    '<%= threeForCom.src %>/{,*/}*.{swig,json}',
+                    '<%= threeForCom.src %>/{,*/}*.html'
+                ],
+                tasks: ['swig:server']
+            },
             coffee: {
                 files: ['<%= threeForCom.src %>/js/{,*/}*.coffee'],
                 tasks: ['coffee:dist']
@@ -98,6 +105,7 @@ module.exports = function(grunt) {
                 },
                 files: [
                     '<%= threeForCom.src %>/*.html',
+                    '.tmp/*.html',
                     '.tmp/css/{,*/}*.css',
                     '{.tmp,<%= threeForCom.src %>}/js/{,*/}*.js',
                     '<%= threeForCom.src %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
@@ -196,6 +204,52 @@ module.exports = function(grunt) {
                     dest: '.tmp/spec',
                     ext: '.js'
                 }]
+            }
+        },
+        swig: {
+            server: {
+                init: {
+                    root: '<%= threeForCom.src %>/',
+                    allowErrors: false,
+                    autoescape: true
+                },
+                dest: '.tmp/',
+                cwd: '<%= threeForCom.src %>/',
+                src: [
+                    '*.swig'
+                ],
+                generateSitemap: false,
+                generateRobotstxt: false,
+                siteUrl: 'http://localhost:9000/',
+                production: false,
+                robots_directive: 'Disallow /',
+                sitemap_priorities: {
+                    '_DEFAULT_': '0.5',
+                    'index': '0.8',
+                    'subpage': '0.7'
+                }
+            },
+            dist: {
+                init: {
+                    root: '<%= threeForCom.src %>/',
+                    allowErrors: false,
+                    autoescape: true
+                },
+                dest: '<%= threeForCom.dist %>/',
+                cwd: '<%= threeForCom.src %>/',
+                src: [
+                    '*.swig'
+                ],
+                generateSitemap: true,
+                generateRobotstxt: true,
+                siteUrl: 'http://localhost:9000/',
+                production: true,
+                robots_directive: 'Disallow /',
+                sitemap_priorities: {
+                    '_DEFAULT_': '0.5',
+                    'index': '0.8',
+                    'subpage': '0.7'
+                }
             }
         },
         compass: {
@@ -316,7 +370,7 @@ module.exports = function(grunt) {
             options: {
                 dest: '<%= threeForCom.dist %>'
             },
-            html: '<%= threeForCom.src %>/index.html'
+            html: '<%= threeForCom.dist %>/index.html'
         },
         usemin: {
             options: {
@@ -377,15 +431,15 @@ module.exports = function(grunt) {
         htmlmin: {
             dist: {
                 options: {
-                    removeCommentsFromCDATA: true,
-                    // https://github.com/threeForCom/grunt-usemin/issues/44
-                    //collapseWhitespace: true,
-                    collapseBooleanAttributes: true,
-                    removeAttributeQuotes: true,
-                    removeRedundantAttributes: true,
-                    useShortDoctype: true,
-                    removeEmptyAttributes: true,
-                    removeOptionalTags: true
+                    // removeCommentsFromCDATA: true,
+                    // // https://github.com/threeForCom/grunt-usemin/issues/44
+                    // //collapseWhitespace: true,
+                    // collapseBooleanAttributes: true,
+                    // removeAttributeQuotes: true,
+                    // removeRedundantAttributes: true,
+                    // useShortDoctype: true,
+                    // removeEmptyAttributes: true,
+                    // removeOptionalTags: true
                 },
                 files: [{
                     expand: true,
@@ -397,6 +451,7 @@ module.exports = function(grunt) {
         },
         concurrent: {
             server: [
+                'swig:server',
                 'compass',
                 'coffee:dist',
                 'less:dist',
@@ -404,12 +459,14 @@ module.exports = function(grunt) {
                 'copy:styles'
             ],
             test: [
+                'swig:server',
                 'coffee',
                 'less:dist',
                 'stylus:dist',
                 'copy:styles'
             ],
             dist: [
+                'swig:server',
                 'coffee',
                 'compass',
                 'less:dist',
@@ -424,7 +481,7 @@ module.exports = function(grunt) {
             watch: {
                 options: {
                     title: 'Task Complete', // optional
-                    message: 'SASS and Uglify finished running', //required
+                    message: 'SASS and Uglify finished running' //required
                 }
             },
             server: {
@@ -453,6 +510,7 @@ module.exports = function(grunt) {
     });
 
     grunt.loadNpmTasks('grunt-notify');
+    grunt.loadNpmTasks('grunt-swig');
 
     grunt.registerTask('test', [
         'clean:server',
@@ -465,10 +523,11 @@ module.exports = function(grunt) {
 
     grunt.registerTask('build', [
         'clean:dist',
+        'swig:dist',
         'useminPrepare',
         'concurrent:dist',
         'autoprefixer',
-        'csslint:dist',
+        // 'csslint:dist',
         'jshint',
         'concat',
         'cssmin',

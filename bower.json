@@ -4,7 +4,7 @@
   "dependencies": {
     "modernizr": "~2.6.2",
     "jquery": "*",
-    "flexslider": "*"
+    "bootstrap": "~3.0.0"
   },
   "devDependencies": {}
 }
